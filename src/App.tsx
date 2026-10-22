@@ -2,16 +2,17 @@ import { menuItems } from "./data/db";
 import MenuItemComponent from "./components/MenuItem";
 import OrderContents from "./components/OrderContents";
 import OrderTotal from "./components/OrderTotal";
-import useOrder from "../hooks/useOrder";
+import TipPercentageForm from "./components/tipPercetangeForm";
+import useOrder from "../hooks/useOrder"; // Asegúrate de tener esta ruta correcta
 
 function App() {
-  const { order, addItem, removeItem, placeOrder } = useOrder();
+  const { order, addItem, removeItem, placeOrder, tip, setTip } = useOrder();
 
   return (
     <>
       <header className="bg-teal-400 py-5">
         <h1 className="text-center text-2xl font-black uppercase">
-          Calculadora de Consumo
+          Calculadora de Propinas y Consumo
         </h1>
       </header>
 
@@ -30,7 +31,9 @@ function App() {
             <>
               <OrderContents order={order} removeItem={removeItem} />
 
-              <OrderTotal order={order} placeOrder={placeOrder} />
+              <TipPercentageForm setTip={setTip} tip={tip} />
+
+              <OrderTotal order={order} tip={tip} placeOrder={placeOrder} />
             </>
           ) : (
             <p className="text-center text-2xl text-slate-400">
